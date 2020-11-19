@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'widgets/expenseCard.dart';
-import 'models/itodo.dart';
+import 'models/iexpense.dart';
 import 'services/db_helper.dart';
 import 'widgets/edit_dialog.dart';
 
@@ -121,14 +121,14 @@ class _ExpenseListState extends State<ExpenseList> {
   Widget _getExpenses() {
     return FutureBuilder(
         future: DatabaseHelper.getExpense(),
-        builder: (BuildContext context, AsyncSnapshot<List<ITodo>> snapshot) {
+        builder: (BuildContext context, AsyncSnapshot<List<IExpense>> snapshot) {
           print(snapshot.connectionState);
           if (snapshot.connectionState == ConnectionState.done &&
               snapshot.data.length > 0) {
             return ListView.builder(
               padding: const EdgeInsets.all(10.0),
               itemBuilder: (BuildContext context, int index) => ExpenseCard(
-                  todo: snapshot.data[index], delete: _deleteExpense),
+                  expense: snapshot.data[index], delete: _deleteExpense),
               itemCount: snapshot.data.length,
             );
           } else if (snapshot.connectionState == ConnectionState.waiting) {

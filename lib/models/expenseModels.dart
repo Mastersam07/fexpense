@@ -1,9 +1,9 @@
-class ITodo {
+class Expense {
   Resource resource;
 
-  ITodo({this.resource});
+  Expense({this.resource});
 
-  ITodo.fromJson(Map<String, dynamic> json) {
+  Expense.fromJson(Map<String, dynamic> json) {
     resource = json['resource'] != null
         ? new Resource.fromJson(json['resource'])
         : null;
@@ -19,38 +19,35 @@ class ITodo {
 }
 
 class Resource {
-  Reff ref;
-  int ts;
-  Data data;
+  List<Data> data;
 
-  Resource({this.ref, this.ts, this.data});
+  Resource({this.data});
 
   Resource.fromJson(Map<String, dynamic> json) {
-    ref = json['ref'] != null ? new Reff.fromJson(json['ref']) : null;
-    ts = json['ts'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    if (json['data'] != null) {
+      data = new List<Data>();
+      json['data'].forEach((v) {
+        data.add(new Data.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.ref != null) {
-      data['ref'] = this.ref.toJson();
-    }
-    data['ts'] = this.ts;
     if (this.data != null) {
-      data['data'] = this.data.toJson();
+      data['data'] = this.data.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Reff {
-  Refff ref;
+class Data {
+  Reff ref;
 
-  Reff({this.ref});
+  Data({this.ref});
 
-  Reff.fromJson(Map<String, dynamic> json) {
-    ref = json['@ref'] != null ? new Refff.fromJson(json['@ref']) : null;
+  Data.fromJson(Map<String, dynamic> json) {
+    ref = json['@ref'] != null ? new Reff.fromJson(json['@ref']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -62,16 +59,16 @@ class Reff {
   }
 }
 
-class Refff {
+class Reff {
   String id;
-  Reffff collection;
+  Data collection;
 
-  Refff({this.id, this.collection});
+  Reff({this.id, this.collection});
 
-  Refff.fromJson(Map<String, dynamic> json) {
+  Reff.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     collection = json['collection'] != null
-        ? new Reffff.fromJson(json['collection'])
+        ? new Data.fromJson(json['collection'])
         : null;
   }
 
@@ -85,37 +82,18 @@ class Refff {
   }
 }
 
-class Reffff {
+class Refff {
   String id;
 
-  Reffff({this.id});
+  Refff({this.id});
 
-  Reffff.fromJson(Map<String, dynamic> json) {
+  Refff.fromJson(Map<String, dynamic> json) {
     id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    return data;
-  }
-}
-
-class Data {
-  String name;
-  String amount;
-
-  Data({this.name, this.amount});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    amount = json['amount'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['amount'] = this.amount;
     return data;
   }
 }
