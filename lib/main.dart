@@ -102,7 +102,7 @@ class _ExpenseListState extends State<ExpenseList> {
         barrierDismissible: false,
         context: context,
         builder: (context) {
-          return EditDialog(
+          return ExpenseDialog(
               title: 'Add Expenses',
               positiveAction: 'ADD',
               negativeAction: 'CANCEL',

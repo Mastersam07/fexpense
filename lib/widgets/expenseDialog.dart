@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 typedef VoidCallback = Function(String expense, String amount);
 
-class EditDialog extends StatefulWidget {
-  const EditDialog(
+class ExpenseDialog extends StatefulWidget {
+  const ExpenseDialog(
       {@required this.title,
       @required this.positiveAction,
       @required this.negativeAction,
@@ -11,10 +11,10 @@ class EditDialog extends StatefulWidget {
   final String title, positiveAction, negativeAction;
   final VoidCallback submit;
 
-  EditDialogState createState() => EditDialogState();
+  ExpenseDialogState createState() => ExpenseDialogState();
 }
 
-class EditDialogState extends State<EditDialog> {
+class ExpenseDialogState extends State<ExpenseDialog> {
   final TextEditingController textFieldController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController numberController = TextEditingController();
