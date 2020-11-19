@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:faunadb_http/faunadb_http.dart';
 import 'package:faunadb_http/query.dart';
-import 'package:fexpense/models/itodo.dart';
-import 'package:fexpense/models/todoModels.dart';
+import 'package:fexpense/models/iexpense.dart';
+import 'package:fexpense/models/expenseModels.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class DatabaseHelper {
@@ -20,20 +20,20 @@ class DatabaseHelper {
     });
   }
 
-  static Future<List<ITodo>> getExpense() async {
-    List<ITodo> todoList = List();
+  static Future<List<IExpense>> getExpense() async {
+    List<IExpense> todoList = List();
     final config = FaunaConfig.build(
       secret: DotEnv().env['fauna_secret'],
     );
     final client = FaunaClient(config);
     final result = await client.query(Paginate(Match(Index('all_tasks'))));
     var datainJson = jsonDecode(result.raw.toString());
-    var todo = Todo.fromJson(datainJson);
+    var todo = Expense.fromJson(datainJson);
     for (var i = 0; i < todo.resource.data.length; i++) {
       final newresult = await client
           .query(Get(Ref(Collection("tasks"), todo.resource.data[i].ref.id)));
       var dataInJson = jsonDecode(newresult.raw.toString());
-      todoList.add(ITodo.fromJson(dataInJson));
+      todoList.add(IExpense.fromJson(dataInJson));
     }
     return todoList;
   }
