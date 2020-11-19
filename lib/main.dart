@@ -5,7 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'widgets/expenseCard.dart';
 import 'models/iexpense.dart';
 import 'services/db_helper.dart';
-import 'widgets/edit_dialog.dart';
+import 'widgets/expenseDialog.dart';
 
 Future main() async {
   await DotEnv().load('.env');
