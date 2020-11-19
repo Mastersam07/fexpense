@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'widgets/expenseCard.dart';
 import 'models/iexpense.dart';
-import 'services/db_helper.dart';
+import 'services/expenseServices.dart';
 import 'widgets/expenseDialog.dart';
 
 Future main() async {
